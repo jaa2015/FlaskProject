@@ -1,0 +1,25 @@
+{
+  "name": "flaskproject",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "authors": [
+    "doubledead"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.1",
+    "bootstrap": "^3.3.6",
+    "moment": "^2.13.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "bootstrap-datepicker": "^1.6.1"
+  }
+}

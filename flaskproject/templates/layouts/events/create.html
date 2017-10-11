@@ -1,0 +1,53 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Flask Project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "assets/_datetimepicker_js.html" %}
+    <link href="{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}" rel="stylesheet">
+    {% include "assets/_datetimepicker_css.html" %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body>
+    {% include "layouts/_menu.html" %}
+    <div class="container">
+      {% block container %}{% endblock %}
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="text/javascript">
+      $(function () {
+        $('#start_date').datetimepicker({
+          /*format: 'MM-DD-YYYY hh:mm:ss a'*/
+          /*format: 'MM-DD-YYYY hh:mm'*/
+          format: 'MM-DD-YYYY hh:mm A'
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      $(function () {
+        $('#end_date').datetimepicker({
+          /*format: 'MM-DD-YYYY hh:mm:ss a'*/
+          /*format: 'MM-DD-YYYY hh:mm'*/
+          format: 'MM-DD-YYYY hh:mm A'
+        });
+      });
+    </script>
+    <script src="{{ url_for('static', filename='js/event/create.js') }}"></script>
+  </body>
+</html>

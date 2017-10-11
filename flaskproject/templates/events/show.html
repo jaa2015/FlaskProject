@@ -1,0 +1,27 @@
+{% extends 'layouts/events/events.html' %}
+{% block title %}Events - {{ event.name }}{% endblock %}
+{% block container %}
+  <div class="jumbotron">
+    <h3>Event {{ event.name }}</h3>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">Name</div>
+    <div class="col-sm-3 col-md-3">Start Date</div>
+    <div class="col-sm-3 col-md-3">End Date</div>
+    <div class="col-sm-1 col-md-1">&nbsp;</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">&nbsp;</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">{{ event.name }}</div>
+    <div class="col-sm-3 col-md-3">{{ moment(event.start_date).format('MM-D-YYYY, h:mm a') }}</div>
+    <div class="col-sm-3 col-md-3">{{ moment(event.end_date).format('MM-D-YYYY, h:mm a') }}</div>
+    <div class="col-sm-1 col-md-1">
+      <a href="{{ url_for('events.update', event_id=event.id) }}" class="btn btn-xs btn-info">
+        Edit
+      </a>
+    </div>
+    <div class="col-sm-3 col-md-1">&nbsp;</div>
+  </div>
+{% endblock %}
