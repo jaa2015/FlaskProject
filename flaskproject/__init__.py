@@ -10,7 +10,7 @@ from flaskproject.cache import cache
 from .core import db, ma, mail, moment, scheduler, security
 from .models import User, Role
 
-from .users.forms import ExtendedRegisterForm
+from .users.forms import ExtendedRegisterForm, ExtendedConfirmRegisterForm
 
 app = Flask(__name__,
             instance_path=get_instance_folder_path(),
@@ -30,7 +30,8 @@ ma.init_app(app)
 mail.init_app(app)
 moment.init_app(app)
 security.init_app(app, SQLAlchemyUserDatastore(db, User, Role),
-                  register_form=ExtendedRegisterForm)
+                  register_form=ExtendedRegisterForm, 
+                  confirm_register_form=ExtendedConfirmRegisterForm)
 
 # Flask-APScheduler initialize and start.
 scheduler.init_app(app)
