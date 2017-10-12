@@ -30,7 +30,7 @@ ma.init_app(app)
 mail.init_app(app)
 moment.init_app(app)
 security.init_app(app, SQLAlchemyUserDatastore(db, User, Role),
-                  register_form=ExtendedRegisterForm, 
+                  register_form=ExtendedRegisterForm,
                   confirm_register_form=ExtendedConfirmRegisterForm)
 
 # Flask-APScheduler initialize and start.
