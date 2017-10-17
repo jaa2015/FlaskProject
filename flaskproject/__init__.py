@@ -5,7 +5,7 @@ from flask_security import SQLAlchemyUserDatastore, current_user
 import logging
 
 from flaskproject.utils import get_instance_folder_path
-from flaskproject.cache import cache
+# from flaskproject.cache import cache
 
 from .core import db, ma, mail, moment, scheduler, security
 from .models import User, Role
@@ -23,7 +23,7 @@ app.config.from_pyfile('config.cfg', silent=True)
 
 # logging.basicConfig(format=app.config['LOGGING_FORMAT'],filename='logs.log',level=logging.DEBUG)
 
-cache.init_app(app)
+# cache.init_app(app)
 
 db.init_app(app)
 ma.init_app(app)
@@ -70,7 +70,7 @@ def inject_user():
 
 
 @app.route('/')
-@cache.cached(300)
+# @cache.cached(300)
 def home():
     return render_template('index.html')
 

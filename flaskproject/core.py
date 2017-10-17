@@ -3,7 +3,7 @@
 # core module
 
 from flask_apscheduler import APScheduler
-from flask.ext.moment import Moment
+from flask_moment import Moment
 from flask_mail import Mail
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
