@@ -31,10 +31,20 @@ class Guest(db.Model):
     __tablename__ = 'guests'
 
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     email = db.Column(db.String(225))
+    first_name = db.Column(db.String(255))
+    last_edit_date = db.Column(db.DateTime())
+    last_name = db.Column(db.String(255))
+    user_id = db.Column(db.Integer())
 
-    def __init__(self, email):
+    def __init__(self, active, email, first_name, last_edit_date, last_name, user_id):
+        self.active = active
         self.email = email
+        self.first_name = first_name
+        self.last_edit_date = last_edit_date
+        self.last_name = last_name
+        self.user_id = user_id
 
 
 class GuestSchema(ma.ModelSchema):
@@ -46,11 +56,12 @@ class Subitem(db.Model):
     __tablename__ = 'subitems'
 
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     quantity = db.Column(db.Integer())
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user_id = db.Column(db.Integer())
 
-    def __init__(self, quantity, user_id):
+    def __init__(self, active, quantity, user_id):
+        self.active = active
         self.quantity = quantity
         self.user_id = user_id
 
@@ -66,6 +77,7 @@ class Item(db.Model):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     category_id = db.Column(db.Integer())
     name = db.Column(db.String(225))
     quantity = db.Column(db.Integer())
@@ -75,7 +87,8 @@ class Item(db.Model):
     subitems = db.relationship('Subitem', secondary=items_subitems,
                                backref=db.backref('items', lazy='joined'))
 
-    def __init__(self, category_id, name, quantity, quantity_claimed):
+    def __init__(self, active, category_id, name, quantity, quantity_claimed):
+        self.active = active
         self.category_id = category_id
         self.name = name
         self.quantity = quantity
@@ -97,6 +110,7 @@ class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     address = db.Column(db.String(225))
     address_line_two = db.Column(db.String(225))
     category_id = db.Column(db.Integer())
@@ -121,8 +135,9 @@ class Event(db.Model):
     items = db.relationship('Item', secondary=events_items,
                             backref=db.backref('events', lazy='joined'))
 
-    def __init__(self, address, address_line_two, category_id, city, country, end_date, last_edit_date,
+    def __init__(self, active, address, address_line_two, category_id, city, country, end_date, last_edit_date,
                  name, start_date, state, status_id, user_id, zip_code, create_date=None):
+        self.active = active
         self.address = address
         self.address_line_two = address_line_two
         self.category_id = category_id
@@ -154,10 +169,12 @@ event_schema = EventSchema()
 
 class Category(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     name = db.Column(db.String(225))
     status_code = db.Column(db.Integer())
 
-    def __init__(self, name, status_code):
+    def __init__(self, active, name, status_code):
+        self.active = active
         self.name = name
         self.status_code = status_code
 
@@ -174,10 +191,12 @@ category_schema = CategorySchema()
 
 class Status(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
+    active = db.Column(db.Boolean(), default=True)
     name = db.Column(db.String(225))
     status_code = db.Column(db.Integer())
 
-    def __init__(self, name, status_code):
+    def __init__(self, active, name, status_code):
+        self.active = active
         self.name = name
         self.status_code = status_code
 

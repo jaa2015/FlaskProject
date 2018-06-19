@@ -5,36 +5,57 @@
     Manager module
 """
 
-from flask.ext.script import Manager
+from flask_script import Manager
 from flask import json, current_app
 
 from flaskproject import app
 from flaskproject.core import db
 from flaskproject.users.models import User
+from flaskproject.entries.models import Entry, EntryCategory
 from flaskproject.events.models import Category, Event, Status
 from datetime import datetime, date
 from sqlalchemy import exc
 
 manager = Manager(app)
 
-@manager.command
-def hello():
-    print "hello"
-
 
 @manager.command
 def populate():
-    status_active = Status(name='Active', status_code=100)
-    status_inactive = Status(name='Inactive', status_code=200)
-    status_cancelled = Status(name='Cancelled', status_code=300)
-    status_completed = Status(name='Completed', status_code=400)
-    status_archived = Status(name='Archived', status_code=500)
+    # Event Status
+    status_active = Status(active=True, name='Active', status_code=100)
+    status_inactive = Status(active=True, name='Inactive', status_code=200)
+    status_cancelled = Status(active=True, name='Cancelled', status_code=300)
+    status_completed = Status(active=True, name='Completed', status_code=400)
+    status_archived = Status(active=True, name='Archived', status_code=500)
+
+    # Event Categories
+    category_entry_general = EntryCategory(active=True, name='General', status_code=1)
+    category_entry_journal = EntryCategory(active=True, name='Journal', status_code=2)
+    category_entry_log = EntryCategory(active=True, name='Log', status_code=3)
+
+    # Event Categories
+    category_event_general = Category(active=True, name='General', status_code=1)
+    category_event_lunch = Category(active=True, name='Lunch', status_code=2)
+    category_event_happy_hour = Category(active=True, name='Happy Hour', status_code=3)
+    category_event_birthday_party = Category(active=True, name='Birthday Party', status_code=4)
+    category_event_meeting = Category(active=True, name='Meeting', status_code=5)
+
+    db.session.add(category_entry_general)
+    db.session.add(category_entry_journal)
+    db.session.add(category_entry_log)
+
+    db.session.add(category_event_general)
+    db.session.add(category_event_lunch)
+    db.session.add(category_event_happy_hour)
+    db.session.add(category_event_birthday_party)
+    db.session.add(category_event_meeting)
 
     db.session.add(status_active)
     db.session.add(status_inactive)
     db.session.add(status_cancelled)
     db.session.add(status_completed)
     db.session.add(status_archived)
+
     db.session.commit()
 
 

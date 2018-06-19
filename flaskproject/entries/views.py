@@ -33,8 +33,9 @@ def create_entry():
     if request.method == 'POST' and form.validate():
         title = form.title.data
         body = form.body.data
+        category_id = 1
         user_id = current_user.id
-        entry = Entry(title, body, user_id)
+        entry = Entry(title, body, category_id, user_id)
 
         try:
             db.session.add(entry)
@@ -51,6 +52,7 @@ def create_entry():
 @login_required
 def show(entry_id):
     entry = Entry.query.filter_by(id=entry_id).first_or_404()
+    print(entry.category_id)
 
     return render_template("entries/show.html", entry=entry)
 

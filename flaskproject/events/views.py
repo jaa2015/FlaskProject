@@ -58,6 +58,7 @@ def create_event():
     form = NewEventForm(request.form)
 
     if request.method == 'POST' and form.validate():
+        active = True
         address = form.address.data
         address_line_two = form.address_line_two.data
         category_id = 100
@@ -71,7 +72,7 @@ def create_event():
         status_id = 100
         user_id = current_user.id
         zip_code = form.zip_code.data
-        event = Event(address, address_line_two, category_id, city, country, end_date, last_edit_date, name,
+        event = Event(active, address, address_line_two, category_id, city, country, end_date, last_edit_date, name,
                       start_date, state, status_id, user_id, zip_code)
 
         try:
@@ -92,6 +93,7 @@ def create():
     form = NewEventForm(request.form)
 
     if request.method == 'POST' and form.validate():
+        active = True
         address = form.address.data
         address_line_two = form.address_line_two.data
         category_id = 100
@@ -105,7 +107,7 @@ def create():
         status_id = 100
         user_id = current_user.id
         zip_code = form.zip_code.data
-        event = Event(address, address_line_two, category_id, city, country, end_date, last_edit_date, name,
+        event = Event(active, address, address_line_two, category_id, city, country, end_date, last_edit_date, name,
                       start_date, state, status_id, user_id, zip_code)
 
         try:

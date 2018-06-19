@@ -19,7 +19,6 @@ app = Flask(__name__,
 
 
 app.config.from_object('flaskproject.settings')
-app.config.from_pyfile('config.cfg', silent=True)
 
 # logging.basicConfig(format=app.config['LOGGING_FORMAT'],filename='logs.log',level=logging.DEBUG)
 
