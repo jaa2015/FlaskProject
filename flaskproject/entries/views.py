@@ -4,7 +4,7 @@ from ..core import db
 from flask_security import login_required, current_user
 from datetime import datetime
 from .forms import CreateEntryForm, UpdateEntryForm
-from .models import Entry
+from .models import Entry, EntryCategory
 from sqlalchemy import exc
 
 entries = Blueprint('entries', __name__, template_folder='templates')
@@ -30,10 +30,13 @@ def display_entries():
 def create_entry():
     form = CreateEntryForm(request.form)
 
+    form.category_id.choices = [(ec.status_code, ec.name) for ec in EntryCategory.query.order_by('name')]
+
     if request.method == 'POST' and form.validate():
         title = form.title.data
         body = form.body.data
-        category_id = 1
+        # category_id = 1
+        category_id = form.category_id.data
         user_id = current_user.id
         entry = Entry(title, body, category_id, user_id)
 
@@ -59,12 +62,15 @@ def show(entry_id):
 @entries.route('/edit/<entry_id>', methods=['GET', 'POST'])
 @login_required
 def update(entry_id):
+    form = UpdateEntryForm()
     entry = Entry.query.filter_by(id=entry_id).first_or_404()
 
-    form = UpdateEntryForm()
+    form.category_id.choices = [(ec.status_code, ec.name) for ec in EntryCategory.query.order_by('name')]
+
     if request.method == "POST" and form.validate_on_submit():
-        entry.title = form.title.data
         entry.body = form.body.data
+        entry.category_id = form.category_id.data
+        entry.title = form.title.data
 
         try:
             db.session.commit()
@@ -73,8 +79,9 @@ def update(entry_id):
 
         return redirect(url_for('entries.show', entry_id=entry.id))
     else:
-        form.title.data = entry.title
         form.body.data = entry.body
+        form.category_id.data = entry.category_id
+        form.title.data = entry.title
 
     return render_template("entries/edit.html", entry=entry, form=form)
 

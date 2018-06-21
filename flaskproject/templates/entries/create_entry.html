@@ -23,6 +23,9 @@
           {{ form.title.label }} {{ form.title(size=20, class_='form-control') }}
         </div>
         <div class="form-group">
+          {{ form.category_id.label }} {{ form.category_id(class_='form-control') }}
+        </div>
+        <div class="form-group">
           {{ form.body.label }} {{ form.body(size=20, class_='form-control') }}
         </div>
         <input type="submit" value="Create" class="btn btn-sm btn-success">
